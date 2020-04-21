@@ -1,0 +1,13 @@
+{
+    "name": "gadixsystem/envwriter",
+    "description": "Simple package to write environment from controller",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gadix",
+            "email": "gadixinfo@gmail.com"
+        }
+    ],
+    "require": {}
+}
