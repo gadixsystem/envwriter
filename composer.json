@@ -1,13 +1,23 @@
 {
     "name": "gadixsystem/envwriter",
-    "description": "Simple package to write environment from controller",
+    "description": "Simple package to write environment",
+    "keywords": [".env","environment","modify"],
+    "homepage": "https://github.com/gadixsystem/envwriter",
     "type": "library",
     "license": "MIT",
     "authors": [
         {
             "name": "Gadix",
-            "email": "gadixinfo@gmail.com"
+            "email": "gadixinfo@gmail.com",
+            "role": "Developer"
         }
     ],
-    "require": {}
+    "require": {
+        "php": "^7.1.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "gadixsystem\\envwriter\\": "src/"
+        }
+    }
 }

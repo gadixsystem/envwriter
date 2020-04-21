@@ -4,7 +4,7 @@ namespace gadixsystem\envwriter\tests;
 
 use Tests\TestCase;
 use gadixsystem\envwriter\EnvWriter;
-use Illuminate\Support\Env;
+
 
 class EnvWriterTest extends TestCase
 {
