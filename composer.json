@@ -5,6 +5,7 @@
     "homepage": "https://github.com/gadixsystem/envwriter",
     "type": "library",
     "license": "MIT",
+    "minimum-stability": "dev",
     "authors": [
         {
             "name": "Gadix",
