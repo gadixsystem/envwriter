@@ -28,9 +28,10 @@ In config/app.php add the follow line:
   
   ### **Methods**
   
-  * **EnvWriter::change($key,$value)**
+  * **EnvWriter::change($key,$value,$trim)**
   
   Change the value of a key, if the key does not exist EnvWriter will create a new key with this value, returns true or false.
+  $trim by default is TRUE, if you need to set string with spaces use $trim = FALSE
   
   
   * **EnvWriter::exists($key)**

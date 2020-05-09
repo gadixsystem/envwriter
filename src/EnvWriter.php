@@ -12,15 +12,18 @@ class EnvWriter{
      * @param  string  $value
      * @return boolean
      */
-    public static function change($key,$value){
+    public static function change($key,$value,$trim = TRUE){
 
         if($key == NULL || $value == NULL){
             return false;
         }
 
         $key = str_replace(' ','',$key);
-        $value = str_replace(' ','',$value);
-
+	if($trim){
+        	$value = str_replace(' ','',$value);
+	}else{
+		$value = '"'.$value.'"';
+	}
         $envContent = self::reader();
 
         $newContent = self::readAndReplace($envContent,$key,$value,false);
