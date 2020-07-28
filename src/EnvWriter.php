@@ -2,7 +2,8 @@
 
 namespace gadixsystem\envwriter;
 
-class EnvWriter{
+class EnvWriter
+{
 
 
     /**
@@ -12,27 +13,26 @@ class EnvWriter{
      * @param  string  $value
      * @return boolean
      */
-    public static function change($key,$value,$trim = TRUE){
+    public static function change($key, $value, $trim = true)
+    {
 
-        if($key == NULL || $value == NULL){
+        if ($key == null || $value == null) {
             return false;
         }
 
-        $key = str_replace(' ','',$key);
-	if($trim){
-        	$value = str_replace(' ','',$value);
-	}else{
-		$value = '"'.$value.'"';
-	}
+        $key = str_replace(' ', '', $key);
+        if ($trim) {
+            $value = str_replace(' ', '', $value);
+        } else {
+            $value = '"'.$value.'"';
+        }
         $envContent = self::reader();
 
-        $newContent = self::readAndReplace($envContent,$key,$value,false);
+        $newContent = self::readAndReplace($envContent, $key, $value, false);
 
         self::writer($newContent);
 
         return true;
-
-
     }
 
     /**
@@ -41,32 +41,29 @@ class EnvWriter{
      * @param  string  $key
      * @return boolean
      */
-    public static function exists($key){
+    public static function exists($key)
+    {
 
         $exists = false;
-        $key = str_replace(' ','',$key);
+        $key = str_replace(' ', '', $key);
 
-        if($key == NULL){
+        if ($key == null) {
             return false;
         }
 
         $envContent = self::reader();
 
-        foreach($envContent as $env_line){
-
+        foreach ($envContent as $env_line) {
             $entry = explode("=", $env_line, 2);
 
-            if($entry[0] == $key){
-
+            if ($entry[0] == $key) {
                 $exists = true;
 
                 break;
-
             }
         }
 
         return $exists;
-
     }
 
     /**
@@ -75,23 +72,22 @@ class EnvWriter{
      * @param  string  $key
      * @return boolean
      */
-    public static function delete($key){
+    public static function delete($key)
+    {
 
-        if($key == NULL || !self::exists($key)){
+        if ($key == null || !self::exists($key)) {
             return false;
         }
 
-        $key = str_replace(' ','',$key);
+        $key = str_replace(' ', '', $key);
 
         $envContent = self::reader();
 
-        $newContent = self::readAndReplace($envContent,$key,null,true);
+        $newContent = self::readAndReplace($envContent, $key, null, true);
 
         self::writer($newContent);
 
         return true;
-
-
     }
 
     /**
@@ -99,14 +95,14 @@ class EnvWriter{
      *
      * @return array
      */
-    protected static function reader(){
+    protected static function reader()
+    {
 
         $env = file_get_contents(base_path() . '/.env');
 
         $env = preg_split('/\n/', $env);
 
         return $env;
-
     }
 
     /**
@@ -115,10 +111,10 @@ class EnvWriter{
      * @param  string  $content
      * @return void
      */
-    protected static function writer($content){
+    protected static function writer($content)
+    {
 
         file_put_contents(base_path() . '/.env', $content);
-
     }
 
     /**
@@ -130,32 +126,26 @@ class EnvWriter{
      * @param  boolean  $delete
      * @return string
      */
-    protected static function readAndReplace($env,$key,$value,$delete){
+    protected static function readAndReplace($env, $key, $value, $delete)
+    {
 
         $replaced = false;
 
-        foreach($env as $item => $env_line){
-
+        foreach ($env as $item => $env_line) {
             $entry = explode("=", $env_line, 2);
 
-            if($entry[0] == $key){
-
+            if ($entry[0] == $key) {
                 $env[$item] = $key . "=" . $value;
 
-                if($delete){
-
+                if ($delete) {
                     $env[$item] = "";
-
                 }
                 $replaced = true;
-
             } else {
-
                 $env[$item] = $env_line;
-
             }
         }
-        if(!$replaced && !$delete){
+        if (!$replaced && !$delete) {
             $env['new'] = $key . "=" . $value;
         }
 
@@ -163,6 +153,5 @@ class EnvWriter{
 
 
         return $content;
-
     }
 }
