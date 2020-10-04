@@ -5,7 +5,6 @@ namespace gadixsystem\envwriter;
 class EnvWriter
 {
 
-
     /**
      * Change env key value.
      *
@@ -15,7 +14,6 @@ class EnvWriter
      */
     public static function change($key, $value, $trim = true)
     {
-
         if ($key == null || $value == null) {
             return false;
         }
@@ -24,7 +22,7 @@ class EnvWriter
         if ($trim) {
             $value = str_replace(' ', '', $value);
         } else {
-            $value = '"'.$value.'"';
+            $value = '"' . $value . '"';
         }
         $envContent = self::reader();
 
@@ -43,7 +41,6 @@ class EnvWriter
      */
     public static function exists($key)
     {
-
         $exists = false;
         $key = str_replace(' ', '', $key);
 
@@ -74,7 +71,6 @@ class EnvWriter
      */
     public static function delete($key)
     {
-
         if ($key == null || !self::exists($key)) {
             return false;
         }
@@ -97,7 +93,6 @@ class EnvWriter
      */
     protected static function reader()
     {
-
         $env = file_get_contents(base_path() . '/.env');
 
         $env = preg_split('/\n/', $env);
@@ -113,7 +108,6 @@ class EnvWriter
      */
     protected static function writer($content)
     {
-
         file_put_contents(base_path() . '/.env', $content);
     }
 
@@ -128,7 +122,6 @@ class EnvWriter
      */
     protected static function readAndReplace($env, $key, $value, $delete)
     {
-
         $replaced = false;
 
         foreach ($env as $item => $env_line) {
@@ -150,7 +143,6 @@ class EnvWriter
         }
 
         $content = implode("\n", $env);
-
 
         return $content;
     }
