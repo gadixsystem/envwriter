@@ -4,16 +4,19 @@ namespace gadixsystem\envwriter;
 
 class EnvWriter
 {
-
     /**
      * Change env key value.
      *
-     * @param  string  $key
-     * @param  string  $value
+     * @param  string $key
+     * @param  string $value
+     * @param  bool   $trim
      * @return boolean
      */
-    public static function change($key, $value, $trim = true)
-    {
+    public static function change(
+        string $key,
+        string $value,
+        bool $trim = true
+    ): bool {
         if ($key == null || $value == null) {
             return false;
         }
@@ -36,10 +39,10 @@ class EnvWriter
     /**
      * Check if exists env key value.
      *
-     * @param  string  $key
+     * @param  string $key
      * @return boolean
      */
-    public static function exists($key)
+    public static function exists(string $key): bool
     {
         $exists = false;
         $key = str_replace(' ', '', $key);
@@ -66,10 +69,10 @@ class EnvWriter
     /**
      * Delete env key value.
      *
-     * @param  string  $key
+     * @param  string $key
      * @return boolean
      */
-    public static function delete($key)
+    public static function delete(string $key): bool
     {
         if ($key == null || !self::exists($key)) {
             return false;
@@ -91,37 +94,37 @@ class EnvWriter
      *
      * @return array
      */
-    protected static function reader()
+    protected static function reader(): array
     {
         $env = file_get_contents(base_path() . '/.env');
 
-        $env = preg_split('/\n/', $env);
-
-        return $env;
+        return preg_split('/\n/', $env);
     }
 
     /**
      * Writer env file.
      *
-     * @param  string  $content
+     * @param  string $content
      * @return void
      */
-    protected static function writer($content)
+    protected static function writer(string $content): void
     {
         file_put_contents(base_path() . '/.env', $content);
     }
 
     /**
-     * Read and replace env array.
-     *
-     * @param  array  $env
+     * @param  array   $env
      * @param  string  $key
      * @param  string  $value
-     * @param  boolean  $delete
+     * @param  boolean $delete
      * @return string
      */
-    protected static function readAndReplace($env, $key, $value, $delete)
-    {
+    protected static function readAndReplace(
+        array $env,
+        string $key,
+        string $value,
+        bool $delete
+    ): string {
         $replaced = false;
 
         foreach ($env as $item => $env_line) {
@@ -142,8 +145,6 @@ class EnvWriter
             $env['new'] = $key . "=" . $value;
         }
 
-        $content = implode("\n", $env);
-
-        return $content;
+        return implode("\n", $env);
     }
 }
