@@ -1,19 +1,22 @@
 <?php
 
-    namespace gadixsystem\envwriter;
+namespace gadixsystem\envwriter;
 
-    use Illuminate\Support\ServiceProvider;
-    use gadixsystem\envwriter\EnvWriter;
-    
+use Illuminate\Support\ServiceProvider;
+
 class EnvWriterServiceProvider extends ServiceProvider
 {
     public function boot()
     {
     }
-    public function register()
+
+    public function register(): void
     {
-        $this->app->singleton(EnvWriter::class, function ($app) {
-            return new EnvWriter();
-        });
+        $this->app->singleton(
+            EnvWriter::class,
+            function ($app) {
+                return new EnvWriter();
+            }
+        );
     }
 }
